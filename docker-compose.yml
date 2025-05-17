@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - auth
+      - event
+    networks:
+      - nest-net
+
+  auth:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    ports:
+      - '4001:4001'
+    networks:
+      - nest-net
+
+  event:
+    build:
+      context: ./event
+      dockerfile: Dockerfile
+    ports:
+      - '4002:4002'
+    networks:
+      - nest-net
+
+networks:
+  nest-net:
+    driver: bridge
