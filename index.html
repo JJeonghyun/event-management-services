@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>로그인 테스트</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 30px;
+      }
+      label {
+        display: block;
+        margin: 10px 0 2px;
+      }
+      input[type='text'],
+      input[type='password'] {
+        width: 200px;
+        padding: 6px;
+      }
+      button {
+        margin-top: 15px;
+        padding: 8px 20px;
+      }
+      pre {
+        background: #f4f4f4;
+        padding: 10px;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>로그인 API 테스트</h2>
+    <form id="loginForm">
+      <label for="username">아이디</label>
+      <input type="text" id="username" name="username" required />
+      <label for="password">비밀번호</label>
+      <input type="password" id="password" name="password" required />
+      <br />
+      <button type="submit">로그인</button>
+    </form>
+
+    <h2>회원가입 API 테스트</h2>
+    <form id="registerForm">
+      <label for="newUsername">새 아이디</label>
+      <input type="text" id="newUsername" name="newUsername" required />
+      <label for="newPassword">새 비밀번호</label>
+      <input type="password" id="newPassword" name="newPassword" required />
+      <br />
+      <button type="submit">회원가입</button>
+    </form>
+
+    <h3>응답 결과</h3>
+    <pre id="result"></pre>
+
+    <script>
+      document
+        .getElementById('loginForm')
+        .addEventListener('submit', async function (e) {
+          e.preventDefault();
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+
+          document.getElementById('result').textContent = '요청 중...';
+          try {
+            const res = await axios.post('http://localhost:3000/auth/login', {
+              username,
+              password,
+            });
+            document.getElementById('result').textContent = JSON.stringify(
+              res.data,
+              null,
+              2
+            );
+          } catch (err) {
+            document.getElementById('result').textContent = '요청 실패: ' + err;
+          }
+        });
+
+      document
+        .getElementById('registerForm')
+        .addEventListener('submit', async function (e) {
+          e.preventDefault();
+          const newUsername = document.getElementById('newUsername').value;
+          const newPassword = document.getElementById('newPassword').value;
+
+          document.getElementById('result').textContent = '요청 중...';
+          try {
+            const res = await axios.post(
+              'http://localhost:3000/auth/register',
+              {
+                username: newUsername,
+                password: newPassword,
+              }
+            );
+            document.getElementById('result').textContent = JSON.stringify(
+              res.data,
+              null,
+              2
+            );
+          } catch (err) {
+            document.getElementById('result').textContent = '요청 실패: ' + err;
+          }
+        });
+    </script>
+  </body>
+</html>
