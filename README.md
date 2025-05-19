@@ -61,3 +61,25 @@ docker compose up --build
 # 컨테이너 종료
 docker-compse down
 ```
+
+## 2일차
+
+- MongoDB 설치
+
+```bash
+# 로컬 docker를 통한 mongodb 설치
+docker run -d --name mongodb -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=1234 mongo
+
+# @nestjs/mongoose: NestJS용 Mongoose 모듈
+npm install @nestjs/mongoose mongoose
+```
+
+- 비밀번호 암호화
+  - 유저 등록시
+  - 로그인 시
+
+```bash
+# nest bcrypt
+npm i bcrypt
+npm i -D @types/bcrypt
+```
