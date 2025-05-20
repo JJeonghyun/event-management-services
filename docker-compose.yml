@@ -1,13 +1,11 @@
 version: '3.8'
 services:
   gateway:
-    build: ./gateway
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
-    volumes:
-      - ./gateway:/app
-      - /app/node_modules
-    command: npm run start:dev
     depends_on:
       - auth
       - event
@@ -15,32 +13,28 @@ services:
       - nest-net
 
   auth:
-    build: ./auth
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
     ports:
       - '4001:4001'
-    volumes:
-      - ./auth:/app
-      - /app/node_modules
-    command: npm run start:dev
-    depends_on:
-      - mongodb
     environment:
       - MONGO_URI=mongodb://root:1234@mongodb:27017/auth?authSource=admin
+    depends_on:
+      - mongodb
     networks:
       - nest-net
 
   event:
-    build: ./event
+    build:
+      context: ./event
+      dockerfile: Dockerfile
     ports:
       - '4002:4002'
-    volumes:
-      - ./event:/app
-      - /app/node_modules
-    command: npm run start:dev
-    depends_on:
-      - mongodb
     environment:
       - MONGO_URI=mongodb://root:1234@mongodb:27017/event?authSource=admin
+    depends_on:
+      - mongodb
     networks:
       - nest-net
 
