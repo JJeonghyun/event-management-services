@@ -221,6 +221,8 @@ npm i -D @types/bcrypt
     - 별도의 `공통 라이브러리(패키지, 예: @myorg/common 또는 libs/common)`로 분리해서
       각 서비스가 npm/yarn workspace 등으로 의존성 추가, 서비스별 도메인 모델, DB 스키마, 비즈니스 로직 등은 각 서비스 내부에서만 존재
 
+- 환경 변수 설정 (.env)
+
 - 테스트 코드 부족
 
 - API 문서, ERD, 시스템 구조
